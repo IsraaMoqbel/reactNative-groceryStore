@@ -1,26 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import firebase from 'firebase';
-
-
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import firebase from 'firebase';
 
 import {LogIn} from './src/screens/LogIn';
 import {SignUp} from './src/screens/SignUp';
 import {ChosenItems} from './src/screens/ChosenItems';
-import {Background} from './src/components/Background';
 import {Delivery} from './src/screens/Delivery';
 import {ItemDetails} from './src/screens/ItemDetails';
 import {Items} from './src/screens/Items';
-
 
 type Props = {};
  export default class App extends Component<Props> {
@@ -63,25 +50,6 @@ type Props = {};
 
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 const Stack = createStackNavigator({
     LogIn: {screen: LogIn},
