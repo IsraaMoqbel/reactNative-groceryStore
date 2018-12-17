@@ -35,20 +35,20 @@ type Props = {};
       if (!firebase.apps.length) {
           this.initializeFirebase();
       }
-
-         checkAuth= () => {
-             firebase.auth().onAuthStateChanged((user)=>{
-                 if(user) {
-                    this.setState({LoggedIn:true})
-                     // this.props.navigation.navigate('Items')
-                 } else {
-                     this.setState({LoggedIn:false})
-                     // this.props.navigation.navigate('LogIn')
-                 }
-             })
-      }
-
   }
+
+
+     checkAuth= () => {
+         firebase.auth().onAuthStateChanged((user)=>{
+             if(user) {
+                 this.setState({LoggedIn:true})
+                 // this.props.navigation.navigate('Items')
+             } else {
+                 this.setState({LoggedIn:false})
+                 // this.props.navigation.navigate('LogIn')
+             }
+         })
+     }
 }
 
 const Stack = createStackNavigator({
