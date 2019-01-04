@@ -1,22 +1,29 @@
 import React, {Component} from 'react';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {View, Text, Button, FlatList} from 'react-native'
+
+import MyApp from './src/DrawerNavigator'
 import firebase from 'firebase';
 
-import {LogIn} from './src/screens/LogIn';
-import {SignUp} from './src/screens/SignUp';
-import {ChosenItems} from './src/screens/ChosenItems';
-import {Delivery} from './src/screens/Delivery';
-import {ItemDetails} from './src/screens/ItemDetails';
-import {Items} from './src/screens/Items';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools, devToolsEnhancer  } from 'redux-devtools-extension';
 
-type Props = {};
- export default class App extends Component<Props> {
-     state={
-         loggedIn:null
-     }
+import {connect, Provider} from 'react-redux';
+import Reducers from './src/Reducers/ItemsReducer';
+
+import {bindActionCreators} from "redux";
+
+import {addItem} from "./src/Actions/ItemsAction";
+
+const store = createStore(Reducers);
+
+ export default class App extends Component {
   render() {
     return (
-        <AppContainer/>
+      <Provider store={store}>
+        <View style={{flex:1}}>
+            <MyApp/>
+        </View>
+      </Provider>
     );
   }
      initializeFirebase= ()=> {
@@ -37,29 +44,4 @@ type Props = {};
       }
   }
 
-
-     checkAuth= () => {
-         firebase.auth().onAuthStateChanged((user)=>{
-             if(user) {
-                 this.setState({LoggedIn:true})
-                 // this.props.navigation.navigate('Items')
-             } else {
-                 this.setState({LoggedIn:false})
-                 // this.props.navigation.navigate('LogIn')
-             }
-         })
-     }
 }
-
-const Stack = createStackNavigator({
-    LogIn: {screen: LogIn},
-    ItemDetails: {screen: ItemDetails},
-    ChosenItems: {screen: ChosenItems},
-    Delivery: {screen: Delivery},
-    Items: {screen: Items},
-    SignUp: {screen: SignUp},
-
-});
-
-const AppContainer =  createAppContainer(Stack);
-

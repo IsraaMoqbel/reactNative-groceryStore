@@ -1,18 +1,24 @@
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, TouchableNativeFeedback, TouchableHighlight,Text} from 'react-native';
 
 import React, {Component} from 'react';
-import {SingleItem} from './../components/SingleItem';
+import SingleItem from './../components/SingleItem';
 import {Navbar} from './../components/Navbar';
 import firebase from 'firebase';
 
-// const database = firebase.database();
-export class Items extends Component{
-    state={
-        x:[],
-    };
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addItem} from "../Actions/ItemsAction";
+
+ class Items extends Component{
+   constructor(props) {
+         super(props);
+         this.state = {
+         x:'Heeeeyyy'
+         };
+     }
     static navigationOptions = {
-        title: 'اختر نوع الخضار',
-        header: null
+        drawerLabel: 'القائمة',
     };
 
     renderItem = ({ item, index }) => {
@@ -20,45 +26,27 @@ export class Items extends Component{
             <View
                 style={styles.item}
             >
-                <SingleItem key={{index}} details={item}/>
+                <SingleItem key={index} details={item} navigation={this.props.navigation}/>
             </View>
         );
     };
 
-    // retrieve() {
-    //     firebase.database().ref('/items').then((snapshot)=> {
-    //         if(snapshot) {
-    //             this.setState({ x: snapshot.val() })
-    //         } else {
-    //             this.setState({ x:'xx' })
-    //         }
-    //     });
-    // }
+render() {
 
-    componentDidMount(){
-    }
-
-    render() {
-        let initialArr = [["اسم8","image1","8"],["اسم4","image2","4"],["اسم4","image2","4"],["اسم4","image2","4"]
-            ,["اسم4","image2","4"]];
+        let initialArr = [["طماطم","image1","8"],["خيار","image2","4"],["كوسا","image2","4"],["باذنجان","image2","4"]
+            ,["بطاطا","image2","4"]];
         const { navigation } = this.props;
         const otherParam = navigation.getParam('otherParam');
-
         return (
             <View style={styles.container}>
                 <Navbar  title={'اختر نوع الخضار'} navigation={this.props.navigation}/>
                 <FlatList
-                    data={initialArr}
+                    data={this.props.possible}
                     style={styles.container}
                     renderItem={this.renderItem}
                     numColumns={2}
+                    keyExtractor={(item, index) => index.toString()}
                 />
-                {/*{*/}
-                    {/*this.state.x.length > 0*/}
-                        {/*? <Text>{this.state.x}</Text>*/}
-                        {/*: <Text>No items</Text>*/}
-                {/*}*/}
-
             </View>
         );
     }
@@ -87,3 +75,18 @@ const styles = StyleSheet.create({
         width:181,
     },
 });
+
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        addItem
+    }, dispatch)
+)
+
+
+const mapStateToProps = (state) => {
+    return {
+    possible:state.itemsReducer.possible}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Items)

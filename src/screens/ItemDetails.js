@@ -6,8 +6,7 @@ import {Navbar} from './../components/Navbar';
 
 export class ItemDetails extends Component{
     static navigationOptions = {
-        title: 'بطاطس',
-        header: null
+        drawerLabel: () => null
     };
     state={
         pressStatus0:false,

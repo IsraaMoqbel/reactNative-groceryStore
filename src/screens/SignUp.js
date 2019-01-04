@@ -6,8 +6,7 @@ import firebase from 'firebase';
 
 export class SignUp extends Component{
     static navigationOptions = {
-        title: 'Log in screen',
-        // header: null
+        drawerLabel: () => null
     };
     state = {text: '',
         password:'',

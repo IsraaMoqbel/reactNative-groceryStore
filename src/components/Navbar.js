@@ -12,20 +12,11 @@ export class Navbar extends Component {
                 </TouchableNativeFeedback>
                 <Text style={[styles.font,styles.margin]}>{this.props.title}</Text>
 
-                <TouchableNativeFeedback onPress={() =>  this.props.navigation.navigate('Items')}>
+                <TouchableNativeFeedback onPress={() => this.props.navigation.openDrawer()}>
                 <Image source={require('./../icons/menu.png')}
                 style={styles.image}
                 />
                 </TouchableNativeFeedback>
-                {/*<NavigationBar*/}
-                    {/*title={<Text style={styles.font} onPress={()=> alert('heeey')}>{this.props.title}</Text>}*/}
-                    {/*leftButton={<Image source={require('./../icons/cart.png')} style={styles.image}*/}
-                                       {/*onPress={()=> alert('heeey')}/>}*/}
-                    {/*rightButton={*/}
-                            {/*<Image source={require('./../icons/menu.png')}*/}
-                            {/*style={styles.image}*/}
-                            {/*onPress={() => alert('Bulbazaaaavr!')}/>}*/}
-                {/*/>*/}
             </View>
         );
     }
@@ -43,8 +34,6 @@ const styles = {
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'space-between'
-
-
     },
     image: {
         width:22,
@@ -53,7 +42,6 @@ const styles = {
     },
     font: {
         fontFamily:'Changa-Regular',
-
     },
     margin: {
         margin:10

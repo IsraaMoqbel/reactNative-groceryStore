@@ -6,8 +6,7 @@ import firebase from 'firebase';
 
 export class LogIn extends Component{
     static navigationOptions = {
-        title: 'Log in screen',
-        header: null
+        drawerLabel: () => null
     };
     state = {text: '',
         password:'',
@@ -65,7 +64,6 @@ export class LogIn extends Component{
                             <Image source={require('./../icons/pass.png')} style={styles.image}/>
                         </View>
                     </View>
-
 
                     <View style={{paddingBottom:40}}>
                         <Text style={styles.font}>

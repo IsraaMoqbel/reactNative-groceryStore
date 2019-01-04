@@ -1,16 +1,21 @@
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, TouchableNativeFeedback} from 'react-native';
 
 import React, {Component} from 'react';
 
-export class SingleItem extends Component{
+import { connect } from 'react-redux';
+import { addItem} from "../Actions/ItemsAction";
+
+ class SingleItem extends Component{
     render() {
         return (
-            <View  style={styles.container}>
-                <Text style={styles.welcome}>{this.props.details[0]}</Text>
-                <Image  source={require('./2.jpg')}
-                        style={styles.image}/>
-                <Text style={styles.font}> {this.props.details[2]} شيكل </Text>
-            </View>
+            <TouchableNativeFeedback onPress={()=>{ this.props.dispatch(addItem(this.props.index))}}>
+                <View  style={styles.container}>
+                    <Text style={styles.welcome}>{this.props.details[0]}</Text>
+                    <Image  source={require('./2.jpg')}
+                            style={styles.image}/>
+                    <Text style={styles.font}> {this.props.details[2]} شيكل </Text>
+                </View>
+            </TouchableNativeFeedback>
         );
     }
 }
@@ -41,3 +46,5 @@ const styles = StyleSheet.create({
         marginBottom:15
     }
 });
+
+export default connect()(SingleItem)

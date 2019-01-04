@@ -4,7 +4,9 @@ import React, {Component} from 'react';
 import {ChosenItem} from './../components/ChosenItem';
 import {Navbar} from './../components/Navbar';
 
-export class ChosenItems extends Component{
+import { connect } from 'react-redux';
+
+ class ChosenItems extends Component{
     static navigationOptions = {
         title: 'السلة الشرائية',
         header: null
@@ -12,7 +14,7 @@ export class ChosenItems extends Component{
     renderItem = ({ item, index }) => {
         return (
             <View style={styles.item}>
-                <ChosenItem key={{index}} details={item}/>
+                <ChosenItem key={index} details={item}/>
             </View>
         );
     };
@@ -22,10 +24,11 @@ export class ChosenItems extends Component{
             <View>
                 <Navbar title={'السلة الشرائية'} navigation={this.props.navigation}/>
                 <FlatList
-                    data={initialArr}
+                    data={this.props.current}
                     style={styles.container}
                     renderItem={this.renderItem}
                     numColumns={2}
+                    keyExtractor={(item, index) => index.toString()}
                 />
                 <Text style={styles.welcome}> المجموع 7 شيكل</Text>
                 <TouchableNativeFeedback
@@ -41,7 +44,6 @@ export class ChosenItems extends Component{
             </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -81,3 +83,16 @@ const styles = StyleSheet.create({
     }
 
 });
+
+const mapDispatchToProps = dispatch => {
+    bindActionCreators({
+        addItem
+    }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+    return {
+    current:state.itemsReducer.current}
+}
+
+export default connect(mapStateToProps)(ChosenItems)
